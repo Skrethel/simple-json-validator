@@ -62,7 +62,6 @@ public class JsonValidator {
 	}
 
 	private void consumeArray(ByteProducer source) {
-		System.out.println("Array started"); // TODO remove
 		check(source.get(), LEFT_SQUARE, "Array must start with [");
 		boolean noValue = true;
 		do {
@@ -82,7 +81,6 @@ public class JsonValidator {
 	}
 
 	private void consumeObject(ByteProducer source) {
-		System.out.println("Object started"); // TODO remove
 		check(source.get(), LEFT_CURLY, "Object must start with {");
 		boolean noValue = true;
 		do {
@@ -140,7 +138,6 @@ public class JsonValidator {
 	}
 
 	private void consumeNumber(ByteProducer source) {
-		System.out.println("Number started"); // TODO: remove
 		int character = source.get();
 		if (character == MINUS) {
 			// skip sign

@@ -14,8 +14,7 @@ public class StringByteProducer implements ByteProducer {
 
 	@Override
 	public int get() {
-		int character =  getFromSource();
-		System.out.println(Character.toChars(character)); // TODO remove
+		int character = getFromSource();
 		return character;
 	}
 
