@@ -47,13 +47,7 @@ public class JsonValidator {
 
 	private void consume(ByteProducer source) {
 		consumeWhiteSpace(source);
-		if (isLeftCurlyBracket(source)) {
-			consumeObject(source);
-		} else if (isLeftSquareBracket(source)) {
-			consumeArray(source);
-		} else {
-			throw new ParserException("Json top level entity must be either object or array");
-		}
+		consumeValue(source);
 		try {
 			consumeWhiteSpace(source);
 		} catch (ByteStreamEndException e) {
