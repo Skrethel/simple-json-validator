@@ -41,7 +41,7 @@ public class JsonValidator {
 				throw new ParserException("Trailing data found");
 			}
 		} catch (ByteStreamEndException e) {
-			// ignore end of stream if value is OK
+			throw new ParserException("Unexpected end of data");
 		}
 	}
 
@@ -148,12 +148,26 @@ public class JsonValidator {
 				}
 			}
 		}
-		character = source.peek();
+		try {
+			character = source.peek();
+		} catch (ByteStreamEndException e) {
+			// No possible fractional part
+			return;
+		}
 		if (character == DOT) {
 			source.get();
+			// Fraction part need at least one digit after dot
+			if (!isDigit(source.peek())) {
+				throw new ParserException("Missing valid fractional part in number");
+			}
 			consumeDigits(source);
 		}
-		character = source.peek();
+		try {
+			character = source.peek();
+		} catch (ByteStreamEndException e) {
+			// No possible exponential part
+			return;
+		}
 		if (character == SMALL_E || character == BIG_E) {
 			consumeExp(source);
 		}
@@ -176,11 +190,15 @@ public class JsonValidator {
 	}
 
 	private void consumeDigits(ByteProducer source) {
-		while(true) {
-			if (!(isDigit(source.peek()))) {
-				break;
+		try {
+			while (true) {
+				if (!(isDigit(source.peek()))) {
+					break;
+				}
+				source.get();
 			}
-			source.get();
+		} catch (ByteStreamEndException e) {
+			// ignore end of stream in consume digit since here end of byte stream is OK
 		}
 	}
 

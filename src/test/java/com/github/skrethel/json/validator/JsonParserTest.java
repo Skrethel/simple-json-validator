@@ -66,11 +66,31 @@ public class JsonParserTest {
 
 	@Test
 	public void testSingleFloat() throws Exception {
-		new JsonValidator().validate("1e4");
+		new JsonValidator().validate("1e0");
 	}
 
 	@Test
 	public void testSingleString() throws Exception {
 		new JsonValidator().validate("\"\"");
+	}
+
+	@Test(expected = ParserException.class)
+	public void testSingleInvalidString() throws Exception {
+		new JsonValidator().validate("\"a");
+	}
+
+	@Test(expected = ParserException.class)
+	public void testSingleInvalidFloat() throws Exception {
+		new JsonValidator().validate("1.");
+	}
+
+	@Test(expected = ParserException.class)
+	public void testSingleInvalidExpNumber() throws Exception {
+		new JsonValidator().validate("1e");
+	}
+
+	@Test(expected = ParserException.class)
+	public void testSingleInvalidNumber() throws Exception {
+		new JsonValidator().validate("1a");
 	}
 }
