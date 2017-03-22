@@ -6,7 +6,7 @@
 
 	<groupId>com.github.skrethel</groupId>
 	<artifactId>simple-json-validator</artifactId>
-	<version>1.1-SNAPSHOT</version>
+	<version>1.2-SNAPSHOT</version>
 	<parent>
 		<groupId>org.sonatype.oss</groupId>
 		<artifactId>oss-parent</artifactId>

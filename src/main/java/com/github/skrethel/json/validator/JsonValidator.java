@@ -41,7 +41,7 @@ public class JsonValidator {
 				throw new ParserException("Trailing data found");
 			}
 		} catch (ByteStreamEndException e) {
-			throw new ParserException("Unexpected end of data");
+			// ignore end of stream if value is OK
 		}
 	}
 
@@ -310,16 +310,8 @@ public class JsonValidator {
 		return character == 0x9 || character == 0xA || character == 0xD || character == 0x20;
 	}
 
-	private static boolean isLeftSquareBracket(ByteProducer source) {
-		return isLeftSquareBracket(source.peek());
-	}
-
 	private static boolean isLeftSquareBracket(int character) {
 		return character == LEFT_SQUARE;
-	}
-
-	private static boolean isLeftCurlyBracket(ByteProducer source) {
-		return isLeftCurlyBracket(source.peek());
 	}
 
 	private static boolean isLeftCurlyBracket(int character) {

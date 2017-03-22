@@ -59,4 +59,18 @@ public class JsonParserTest {
 		System.out.println("Time taken: " + (end - start));
 	}
 
+	@Test
+	public void testSingleNumber() throws Exception {
+		new JsonValidator().validate("1");
+	}
+
+	@Test
+	public void testSingleFloat() throws Exception {
+		new JsonValidator().validate("1e4");
+	}
+
+	@Test
+	public void testSingleString() throws Exception {
+		new JsonValidator().validate("\"\"");
+	}
 }
